@@ -5,6 +5,7 @@ Haystack Static Pages is an extension library for Haystack.  Currently, it adds
 the ability to index static pages through the use of a `settings.py` variable
 and command extension.
 
+I forked trapeze/haystack-static-pages to make it compatible with Django 1.10 + Haystack 2.5.
 
 Basic Usage:
 ------------
@@ -15,13 +16,13 @@ Basic Usage:
 
 	eg. ::
 
-	    HAYSTACK\_STATIC\_PAGES = (
+	    HAYSTACK_STATIC_PAGES = (
                 'static-about_us',                        # A named url
                 'static-help',                            # Another named url
                 'http://www.example.com/some_page.html',  # An fully qualified url
 	    )
 
-#. ``./manage.py syncdb`` to create the necessary tables.
+#. ``./manage.py migrate`` to create the necessary tables.
 #. ``./manage.py crawl_static_pages`` to populate the database with the static
    page content.  This is needed for Haystack to properly map the urls to the
    content. Output should indicate which pages were crawled and where, as well
@@ -32,8 +33,19 @@ Basic Usage:
    You should see a note about how many static pages were indexed.  The number
    of static pages indexed should match the number of static pages created in
    the step above.
+   
+   
+Login:
+---------------
+This version supports login to scrap pages accesible only for logged in users.
+Only add:
+	HAYSTACK_STATIC_LOGIN_AUTH = {
+	    'email': 'exam@ple.com',
+	    'password': '********',
+	}
 
-Advanced Usage:
+
+[TEMP. UNAVAILABLE] Advanced Usage:
 ---------------
 
 There are currently two command line options that can be used with the 
