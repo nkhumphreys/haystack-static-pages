@@ -16,7 +16,8 @@ class StaticPage(models.Model):
         verbose_name_plural = _('static pages')
     
     def __repr__(self):
-        return '<StaticPage: %s -- %s>' % (self.url, truncatewords_html(self.content, 10))
+        #return '<StaticPage: %s -- %s>' % (self.url, truncatewords_html(self.content, 10))
+        return self.title
 
     def __unicode__(self):
         return force_unicode(self.__repr__())
