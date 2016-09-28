@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name='haystack-static-pages',
-    version='0.2.1alpha',
+    version='0.5',
     description="Static pages for Haystack",
     long_description=read('README.rst'),
     classifiers=[
@@ -18,7 +18,7 @@ setup(
     ],
     author='David Sauve',
     author_email='dsauve@trapeze.com',
-    url='http://github.com/trapeze/haystack-static-pages/',
+    url='http://github.com/pisapapiros/haystack-static-pages/',
     license='BSD',
     packages=[
         'haystack_static_pages',
@@ -27,5 +27,9 @@ setup(
     ],
     package_data={
         'haystack_static_pages': ['templates/*']
-    }
+    },
+    install_requires=[
+        'beautifulsoup4',
+        'requests'
+    ],
 )
