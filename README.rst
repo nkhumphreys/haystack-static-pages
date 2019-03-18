@@ -5,7 +5,8 @@ Haystack Static Pages is an extension library for Haystack.  Currently, it adds
 the ability to index static pages through the use of a `settings.py` variable
 and command extension.
 
-I forked trapeze/haystack-static-pages to make it compatible with Django 1.10 + Haystack 2.5.
+Fixed various issues and tested with Django 1.11, Python 2.7 and
+Haystack 2.8.1
 
 Basic Usage:
 ------------
@@ -35,7 +36,7 @@ Basic Usage:
    the step above.
    
    
-Login:
+Login (Optional, does nothing if setting not present):
 ---------------
 This version supports login to scrap pages accesible only for logged in users.
 Only add:
@@ -45,7 +46,7 @@ Only add:
 	}
 
 
-[TEMP. UNAVAILABLE] Advanced Usage:
+Advanced Usage:
 ---------------
 
 There are currently two command line options that can be used with the 
