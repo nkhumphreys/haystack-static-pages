@@ -46,9 +46,9 @@ class Command(BaseCommand):
         if self.language:
             translation.activate(self.language)
 
-        # login
         session = requests.Session()
 
+        # login
         login_data = {}
         if hasattr(settings, 'HAYSTACK_STATIC_LOGIN_AUTH'):
             login_url = '%s%s' % (settings.SERVER_URL, reverse(settings.HAYSTACK_STATIC_LOGIN_PAGE))
@@ -56,7 +56,7 @@ class Command(BaseCommand):
             login_data = settings.HAYSTACK_STATIC_LOGIN_AUTH
             login_data.update({'csrfmiddlewaretoken': session.cookies.get('csrftoken')})
 
-        session.post(login_url, data=login_data, cookies=session.cookies)
+            session.post(login_url, data=login_data, cookies=session.cookies)
 
         for url in settings.HAYSTACK_STATIC_PAGES:
 
