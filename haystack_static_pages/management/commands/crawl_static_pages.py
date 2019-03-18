@@ -26,7 +26,7 @@ class Command(BaseCommand):
     """
     help = 'Setup static pages defined in HAYSTACK_STATIC_PAGES for indexing by Haystack'
     cmd = 'crawl_static_pages [-p PORT] [-l LANG]'
-    
+
     def handle(self, *args, **options):
         if args:
             raise CommandError('Usage is: %s' % cmd)
@@ -47,17 +47,17 @@ class Command(BaseCommand):
             translation.activate(self.language)
 
         # login
-        login_url = '%s%s' % (settings.SERVER_URL, reverse(settings.HAYSTACK_STATIC_LOGIN_PAGE))
         session = requests.Session()
-        session.get(login_url)
 
         login_data = {}
         if hasattr(settings, 'HAYSTACK_STATIC_LOGIN_AUTH'):
+            login_url = '%s%s' % (settings.SERVER_URL, reverse(settings.HAYSTACK_STATIC_LOGIN_PAGE))
+            session.get(login_url)
             login_data = settings.HAYSTACK_STATIC_LOGIN_AUTH
             login_data.update({'csrfmiddlewaretoken': session.cookies.get('csrftoken')})
-                      
-        session.post(login_url, data=login_data, cookies=session.cookies)    
-        
+
+        session.post(login_url, data=login_data, cookies=session.cookies)
+
         for url in settings.HAYSTACK_STATIC_PAGES:
 
             if not url.startswith('http://'):
@@ -65,9 +65,9 @@ class Command(BaseCommand):
                     url = '%s:%r%s' % (settings.SERVER_URL, self.port, reverse(url))
                 else:
                     url = '%s%s' % (settings.SERVER_URL, reverse(url))
-            
+
             print 'Analyzing %s...' % url
-            
+
             try:
                 page = StaticPage.objects.get(url=url)
                 print '%s already exists in the index, updating...' % url
@@ -75,7 +75,7 @@ class Command(BaseCommand):
                 print '%s is new, adding...' % url
                 page = StaticPage(url=url)
                 pass
-            
+
             try:
                 html = session.get(url, cookies=session.cookies).content
                 soup = BeautifulSoup(html, "html.parser")
@@ -97,6 +97,6 @@ class Command(BaseCommand):
             page.content = page_content
             page.save()
             count += 1
-        
+
 
         print 'Crawled %d static pages' % count
