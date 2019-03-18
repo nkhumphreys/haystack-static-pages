@@ -14,18 +14,12 @@ from haystack_static_pages.models import StaticPage
 
 
 class Command(BaseCommand):
-    # option_list deprecated since version 1.8:
-    # You should now override the add_arguments() method to add custom arguments accepted by your command.
-    """
-    option_list = BaseCommand.option_list + (
-        make_option('-p', '--port', action='store', dest='port', default=None,
-            help='The port number to use for internal urls.'),
-        make_option('-l', '--language', action='store', dest='language', default=None,
-            help='The language to use when requesting the page'),
-    )
-    """
     help = 'Setup static pages defined in HAYSTACK_STATIC_PAGES for indexing by Haystack'
     cmd = 'crawl_static_pages [-p PORT] [-l LANG]'
+
+    def add_arguments(self, parser):
+        parser.add_argument('--port', '-p', dest='port', type=str)
+        parser.add_argument('--lang', '-l', dest='language', type=str)
 
     def handle(self, *args, **options):
         if args:
