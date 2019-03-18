@@ -6,7 +6,6 @@ from django.core.management.base import BaseCommand, CommandError
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils import translation
 from django.utils.html import escape
-from optparse import make_option
 
 from bs4 import BeautifulSoup
 
